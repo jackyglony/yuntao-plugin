@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">插件1</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">我是插件1 \n我是写在string文件中的文字</string>
+</resources>
