@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/host" />
             <option value="$PROJECT_DIR$/plugin1" />
             <option value="$PROJECT_DIR$/plugin2" />
+            <option value="$PROJECT_DIR$/plugin3" />
             <option value="$PROJECT_DIR$/pluginlib" />
           </set>
         </option>
@@ -20,6 +21,7 @@
             <option value="$PROJECT_DIR$/host" />
             <option value="$PROJECT_DIR$/plugin1" />
             <option value="$PROJECT_DIR$/plugin2" />
+            <option value="$PROJECT_DIR$/plugin3" />
             <option value="$PROJECT_DIR$/pluginlib" />
           </set>
         </option>

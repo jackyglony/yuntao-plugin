@@ -17,6 +17,7 @@ public class PluginHostActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getLayoutInflater().setFactory2(new WidgetLayoutInflaterFactory());
         super.onCreate(savedInstanceState);
         localPath = getIntent().getStringExtra(Constant.INTENT_KEY_APK_PATH);
         String fragment = getIntent().getStringExtra(Constant.INTENT_KEY_FRAGMENT);
