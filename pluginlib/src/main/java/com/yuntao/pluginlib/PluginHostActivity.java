@@ -37,11 +37,11 @@ public class PluginHostActivity extends BaseActivity {
     }
 
     // 获取插件的运行环境
-    protected PluginRuntimeEnv getPluginRunEnv() {
+    protected PluginEnv getPluginRunEnv() {
         if (null == localPath) {
             return null;
         }
-        PluginRuntimeEnv env = PluginInstallUtils.mPackagesHolder.get(localPath);
+        PluginEnv env = PluginInstallUtils.mPackagesHolder.get(localPath);
         return env;
     }
 
@@ -58,7 +58,7 @@ public class PluginHostActivity extends BaseActivity {
 
     @Override
     public AssetManager getAssets() {
-        PluginRuntimeEnv env = getPluginRunEnv();
+        PluginEnv env = getPluginRunEnv();
         if (isInstall && env != null) {
             return env.pluginAsset;
         } else {
@@ -68,7 +68,7 @@ public class PluginHostActivity extends BaseActivity {
 
     @Override
     public Resources getResources() {
-        PluginRuntimeEnv env = getPluginRunEnv();
+        PluginEnv env = getPluginRunEnv();
         if (isInstall && env != null) {
             return env.pluginRes;
         } else {
@@ -78,7 +78,7 @@ public class PluginHostActivity extends BaseActivity {
 
     @Override
     public ClassLoader getClassLoader() {
-        PluginRuntimeEnv env = getPluginRunEnv();
+        PluginEnv env = getPluginRunEnv();
         if (isInstall && env != null) {
             return env.pluginClassLoader;
         } else {
@@ -88,7 +88,7 @@ public class PluginHostActivity extends BaseActivity {
 
     @Override
     public Resources.Theme getTheme() {
-        PluginRuntimeEnv env = getPluginRunEnv();
+        PluginEnv env = getPluginRunEnv();
         if (isInstall && env != null) {
             return env.pluginTheme;
         } else {

@@ -5,26 +5,38 @@
     android:orientation="vertical">
 
     <ImageView
+        android:layout_marginRight="7dp"
         android:id="@+id/icon_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true" />
 
     <TextView
-        android:id="@+id/app_root"
+        android:id="@+id/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/icon_logo"
-        android:padding="10dp"
+        android:padding="3dp"
         android:text="sdfslfjsldfjlsdfjkl"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
+        android:layout_below="@id/app_name"
         android:id="@+id/app_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_root"
+        android:padding="3dp"
         android:layout_toRightOf="@id/icon_logo"
-        android:padding="10dp"
+        android:textSize="10sp"
         android:text="sdfslfjsldfjlsdfjkl" />
+
+    <TextView
+        android:id="@+id/app_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_path"
+        android:layout_toRightOf="@id/icon_logo"
+        android:padding="3dp"
+        android:text="sdfslfjsldfjlsdfjkl"
+        android:textSize="10sp" />
 </RelativeLayout>

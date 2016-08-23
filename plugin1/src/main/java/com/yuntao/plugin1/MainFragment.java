@@ -21,7 +21,6 @@ public class MainFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         mBtnOpenPlugin2 = (Button) view.findViewById(R.id.btn_open_plugin2);
         mBtnOpenPlugin2.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +34,7 @@ public class MainFragment extends BaseFragment {
 
     public void openPlugin2() {
         startFragment("com.yuntao.plugin2.MainFragment",
-                "/storage/emulated/0/DynamicLoadHost/plugin2-debug.apk");
+                "/storage/emulated/0/yuntao-plugin/plugin2-debug.apk");
     }
 
 }

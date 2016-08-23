@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             item.pluginPath = plugin.getAbsolutePath();
             item.rootFragment = getRootFragment(item.pluginPath);
             item.appLogo = AppUtils.getAppIcon(this, item.pluginPath);
+            item.name = AppUtils.getAppLabel(this, item.pluginPath);
             mPluginItems.add(item);
         }
 
@@ -99,13 +100,15 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 holder.appPath = (TextView) convertView.findViewById(R.id.app_path);
                 holder.appRoot = (TextView) convertView.findViewById(R.id.app_root);
                 holder.appLogo = (ImageView) convertView.findViewById(R.id.icon_logo);
+                holder.appName = (TextView) convertView.findViewById(R.id.app_name);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             PluginItem item = mPluginItems.get(position);
-            holder.appPath.setText("根fragment: " + item.pluginPath);
-            holder.appRoot.setText("插件路径: " + item.rootFragment);
+            holder.appPath.setText("插件路径:" + item.pluginPath);
+            holder.appRoot.setText("打开:" + item.rootFragment);
+            holder.appName.setText(item.name);
             holder.appLogo.setImageDrawable(item.appLogo);
             return convertView;
         }
@@ -113,13 +116,14 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     public static class PluginItem {
-        public String name;
+        public CharSequence name;
         public String rootFragment;
         public String pluginPath;
         public Drawable appLogo;
     }
 
     private static class ViewHolder {
+        public TextView appName;
         public TextView appRoot;
         public TextView appPath;
         public ImageView appLogo;

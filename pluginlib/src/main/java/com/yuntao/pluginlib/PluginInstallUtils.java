@@ -18,7 +18,7 @@ public class PluginInstallUtils {
     private String dexOutputPath;
     private Context mContext;
     private static PluginInstallUtils sInstance;
-    public final static HashMap<String, PluginRuntimeEnv> mPackagesHolder = new HashMap<String, PluginRuntimeEnv>();
+    public final static HashMap<String, PluginEnv> mPackagesHolder = new HashMap<String, PluginEnv>();
 
     private PluginInstallUtils(Context context) {
         mContext = context.getApplicationContext();
@@ -35,8 +35,8 @@ public class PluginInstallUtils {
         return sInstance;
     }
 
-    public PluginRuntimeEnv installRunEnv(String apkPath) {
-        PluginRuntimeEnv pluginPackage = mPackagesHolder.get(apkPath);
+    public PluginEnv installRunEnv(String apkPath) {
+        PluginEnv pluginPackage = mPackagesHolder.get(apkPath);
         if (pluginPackage != null) {
             return pluginPackage;
         }
@@ -46,7 +46,7 @@ public class PluginInstallUtils {
         Resources.Theme theme = resources.newTheme();
         theme.applyStyle(R.style.AppTheme, false);
         // create pluginPackage
-        pluginPackage = new PluginRuntimeEnv(apkPath, dexClassLoader, resources, assetManager, theme);
+        pluginPackage = new PluginEnv(apkPath, dexClassLoader, resources, assetManager, theme);
         mPackagesHolder.put(apkPath, pluginPackage);
         return pluginPackage;
     }
@@ -54,7 +54,7 @@ public class PluginInstallUtils {
     private DexClassLoader createDexClassLoader(String dexPath) {
         File dexOutputDir = mContext.getDir("dex", Context.MODE_PRIVATE);
         dexOutputPath = dexOutputDir.getAbsolutePath();
-        DexClassLoader loader = new DexClassLoader(dexPath, dexOutputPath, null, mContext.getClassLoader());
+        DexClassLoader loader = new PluginClassLoader(dexPath, dexOutputPath, null, mContext.getClassLoader());
         return loader;
     }
 
