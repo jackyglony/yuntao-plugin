@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+/**
+ * 用来装载fragment的Activity,同时提供fragment所需要的插件上下文
+ */
 public class PluginHostActivity extends BaseActivity {
 
     private String localPath;
@@ -97,6 +100,11 @@ public class PluginHostActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 反射创建fragment,通过fragmentManager把创建的fragment附加到Activity
+     *
+     * @param fragClass
+     */
     protected void installPluginFragment(String fragClass) {
         try {
             if (isFinishing()) {

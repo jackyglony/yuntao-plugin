@@ -35,6 +35,12 @@ public class PluginInstallUtils {
         return sInstance;
     }
 
+    /**
+     * 安装插件环境
+     *
+     * @param apkPath
+     * @return
+     */
     public PluginEnv installRunEnv(String apkPath) {
         PluginEnv pluginPackage = mPackagesHolder.get(apkPath);
         if (pluginPackage != null) {
@@ -51,13 +57,24 @@ public class PluginInstallUtils {
         return pluginPackage;
     }
 
+    /**
+     * 创建插件classloader
+     * @param dexPath
+     * @return
+     */
     private DexClassLoader createDexClassLoader(String dexPath) {
         File dexOutputDir = mContext.getDir("dex", Context.MODE_PRIVATE);
         dexOutputPath = dexOutputDir.getAbsolutePath();
-        DexClassLoader loader = new PluginClassLoader(dexPath, dexOutputPath, null, mContext.getClassLoader());
+        DexClassLoader loader = new DexClassLoader(dexPath, dexOutputPath, null, mContext.getClassLoader());
         return loader;
     }
 
+    /**
+     * 创建AssetManager对象
+     *
+     * @param dexPath
+     * @return
+     */
     private AssetManager createAssetManager(String dexPath) {
         try {
             AssetManager assetManager = AssetManager.class.newInstance();
@@ -70,6 +87,12 @@ public class PluginInstallUtils {
         }
     }
 
+    /**
+     * 创建Resource对象
+     *
+     * @param assetManager
+     * @return
+     */
     private Resources createResources(AssetManager assetManager) {
         Resources superRes = mContext.getResources();
         Resources resources = new Resources(assetManager, superRes.getDisplayMetrics(), superRes.getConfiguration());

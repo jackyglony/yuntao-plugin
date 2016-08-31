@@ -12,10 +12,23 @@ public class BaseFragment extends Fragment {
 
     }
 
+    /**
+     * 打开插件fragment
+     *
+     * @param fragment
+     * @param apkPath
+     */
     public void startFragment(String fragment, String apkPath) {
         startFragment(fragment, apkPath, null);
     }
 
+    /**
+     * 打开插件fragment,通过Intent把插件信息传递给宿主PluginHostActivity,让其去加载插件环境,并打开fragment
+     *
+     * @param fragment fragment类名
+     * @param apkPath apk路径
+     * @param bundle 附近信息
+     */
     public void startFragment(String fragment, String apkPath, Bundle bundle) {
         Intent intent = new Intent();
         intent.setAction(Constant.ACTION_HOST_ACTIVITY);
