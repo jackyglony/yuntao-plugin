@@ -5,18 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yuntao.pluginlib.BaseFragment;
+import com.yuntao.pluginlib.NativeCore;
 
 
 public class MainFragment extends BaseFragment {
 
     private Button mBtnOpenPlugin2;
+    private TextView mTextNative;
 
     public MainFragment() {
         // Required empty public constructor
     }
 
+    static {
+        System.loadLibrary("native-lib");
+    }
+
+    public native String stringFromJNI();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +38,9 @@ public class MainFragment extends BaseFragment {
                 openPlugin2();
             }
         });
+        mTextNative = (TextView) view.findViewById(R.id.text_native);
+        mTextNative.setText(stringFromJNI());
+        Toast.makeText(getContext(), NativeCore.stringFromJNI(), Toast.LENGTH_LONG).show();
         return view;
     }
 

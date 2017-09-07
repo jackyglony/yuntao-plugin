@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
@@ -46,7 +47,18 @@ public class PluginInstallUtils {
         if (pluginPackage != null) {
             return pluginPackage;
         }
-        DexClassLoader dexClassLoader = createDexClassLoader(apkPath);
+        String unZipPath = apkPath.replace(".apk", "/");
+        String name = apkPath.substring(apkPath.lastIndexOf("/"), apkPath.length()).replace(".apk", "");
+        FileUtils.unZip(apkPath, unZipPath);//解压插件apk
+//        File dir = getDir("lib", Context.MODE_PRIVATE);
+        String nativeLibPath = "/data/data/com.yuntao.host/pluginLib" + name;
+        try {
+            FileUtils.copyFolder(unZipPath + "lib/armeabi", nativeLibPath);//测试copy插件的so到唯一单独文件夹
+            FileUtils.deleteFile(nativeLibPath + "/libnativeCore.so");//测试删除主程序的so
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DexClassLoader dexClassLoader = createDexClassLoader(apkPath, nativeLibPath);
         AssetManager assetManager = createAssetManager(apkPath);
         Resources resources = createResources(assetManager);
         Resources.Theme theme = resources.newTheme();
@@ -62,10 +74,10 @@ public class PluginInstallUtils {
      * @param dexPath
      * @return
      */
-    private DexClassLoader createDexClassLoader(String dexPath) {
+    private DexClassLoader createDexClassLoader(String dexPath, String nativeLibPath) {
         File dexOutputDir = mContext.getDir("dex", Context.MODE_PRIVATE);
         dexOutputPath = dexOutputDir.getAbsolutePath();
-        DexClassLoader loader = new DexClassLoader(dexPath, dexOutputPath, null, mContext.getClassLoader());
+        DexClassLoader loader = new DexClassLoader(dexPath, dexOutputPath, nativeLibPath, mContext.getClassLoader());
         return loader;
     }
 

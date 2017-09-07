@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yuntao.pluginlib.AppUtils;
 import com.yuntao.pluginlib.BaseActivity;
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        //Toast.makeText(getApplicationContext(), NativeCore.stringFromJNI(), Toast.LENGTH_LONG).show();
     }
 
     private void initView() {
@@ -45,15 +47,25 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         if (!file.exists()) {
             file.mkdirs();
         }
-        File[] plugins = file.listFiles();
+        if (!file.canRead() || !file.canWrite()) {
+            Toast.makeText(getApplicationContext(), "请授予sd卡读写权限", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        for (File plugin : plugins) {
-            PluginItem item = new PluginItem();
-            item.pluginPath = plugin.getAbsolutePath();
-            item.rootFragment = getRootFragment(item.pluginPath);
-            item.appLogo = AppUtils.getAppIcon(this, item.pluginPath);
-            item.name = AppUtils.getAppLabel(this, item.pluginPath);
-            mPluginItems.add(item);
+        File[] plugins = file.listFiles();
+        if (plugins != null) {
+            for (File plugin : plugins) {
+                if (plugin.getName().endsWith(".apk")) {
+                    PluginItem item = new PluginItem();
+                    item.pluginPath = plugin.getAbsolutePath();
+                    item.rootFragment = getRootFragment(item.pluginPath);
+                    item.appLogo = AppUtils.getAppIcon(this, item.pluginPath);
+                    item.name = AppUtils.getAppLabel(this, item.pluginPath);
+                    mPluginItems.add(item);
+                }
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "请把插件放到/sdcard/yuntao-plugin目录下", Toast.LENGTH_SHORT).show();
         }
 
         mListView.setAdapter(mPluginAdapter);
